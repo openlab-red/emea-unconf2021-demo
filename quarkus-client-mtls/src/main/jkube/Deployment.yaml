@@ -2,7 +2,6 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: client
-  namespace: mtls
 spec:
   replicas: 1
   selector:
@@ -17,15 +16,11 @@ spec:
         - name: client
           secret:
             secretName: client
-        - name: truststore
-          secret:
-            secretName: truststore
         - name: config
           configMap:
               name: client
       containers:
         - name: client
-          image: 'image-registry.openshift-image-registry.svc:5000/mtls/client:latest'
           ports:
             - containerPort: 8443
               protocol: TCP
@@ -34,8 +29,5 @@ spec:
             - name: client
               readOnly: true
               mountPath: /deployments/tls
-            - name: truststore
-              readOnly: true
-              mountPath: /deployments/tls/ca
             - name: config
-              mountPath: /home/quarkus
+              mountPath: /deployments/config

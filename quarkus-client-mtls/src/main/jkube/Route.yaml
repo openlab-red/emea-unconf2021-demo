@@ -2,13 +2,13 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: client
-  namespace: mtls
 spec:
-  path: /hello-client
+  tls:
+    termination: passthrough
   to:
     kind: Service
     name: client
     weight: 100
   port:
-    targetPort: 8080
+    targetPort: 8443
   wildcardPolicy: None
