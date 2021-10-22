@@ -2,9 +2,9 @@ package org.acme.client.mtls;
 
 import io.quarkus.test.junit.QuarkusTest;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
@@ -47,7 +47,7 @@ public class GreetingResourceIntegrationTest {
         wireMockServer.stop();
     }
 
-    @Ignore("not ready yet") // TODO: handshake failure
+    @Disabled("not ready yet") // TODO: handshake failure
     public void testHelloEndpoint() {    
         given()
           .when().get("/hello")
