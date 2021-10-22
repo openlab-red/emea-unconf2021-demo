@@ -354,3 +354,4 @@ MigrationBackup/
 .history/
 .settings/
 .project
+.vscode/
