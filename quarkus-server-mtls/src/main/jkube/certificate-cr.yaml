@@ -1,0 +1,20 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: server
+spec:
+  commonName: server.app-dev.unconf.io
+  dnsNames:
+    - server.app-dev.unconf.io
+    - server-app-dev.apps.cluster-7bcd.7bcd.sandbox334.opentlc.com
+    - server.app-dev.svc
+  issuerRef:
+    name: vault-issuer-vault
+  secretName: server
+  keystores:
+    pkcs12:
+      create: true
+      passwordSecretRef:
+        key: password
+        name: server-keystore-pass
+
