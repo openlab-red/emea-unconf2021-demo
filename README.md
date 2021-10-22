@@ -21,9 +21,9 @@ Follow the [environment setup](env/README.md) instruction.
 
 ### Build
 
-```
+  ```
   mvn clean package -Dquarkus.profile=dev
-```
+  ```
 
 ### Build & Run OpenShift
   ```
