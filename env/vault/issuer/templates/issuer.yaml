@@ -1,0 +1,27 @@
+{{- if .Values.issuer.create -}}
+{{- $sa := (lookup "v1" "ServiceAccount" .Release.Namespace "issuer") -}}
+{{- $bundle := (lookup "v1" "ConfigMap" .Release.Namespace "ca-bundle") -}}
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ include "issuer.fullname" . }}-vault
+  labels:
+    {{- include "issuer.labels" . | nindent 4 }}
+spec:
+  vault:
+    path: {{ .Release.Namespace }}-pki/sign/{{ .Values.baseDomain }} 
+    server: {{ .Values.issuer.server }}
+    caBundle: {{ get $bundle.data "service-ca.crt" | b64enc }}
+    auth:
+      kubernetes:
+        role: {{ .Release.Namespace }}-{{ .Values.baseDomain }}
+        mountPath: /v1/auth/kubernetes
+        secretRef:
+          key: token
+          {{- range $sa.secrets }}
+          {{- if contains  "token" .name }}
+          name: {{ .name }}
+          {{- end -}}
+          {{- end }}
+{{- end }}

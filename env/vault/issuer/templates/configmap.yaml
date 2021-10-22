@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ca-bundle
+  annotations:
+    service.beta.openshift.io/inject-cabundle: "true"
+  labels:
+    {{- include "issuer.labels" . | nindent 4 }}
+data: {}

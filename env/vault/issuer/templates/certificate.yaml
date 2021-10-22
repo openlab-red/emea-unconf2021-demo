@@ -1,0 +1,15 @@
+{{- if .Values.issuer.create -}}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "issuer.fullname" . }}-dummy
+  labels:
+    {{- include "issuer.labels" . | nindent 4 }}
+spec:
+  commonName: dummy.{{ .Release.Namespace }}.{{ .Values.baseDomain }} 
+  dnsNames:
+    - dummy.{{ .Release.Namespace }}.{{ .Values.baseDomain }} 
+  secretName: {{ include "issuer.fullname" . }}-dummy-cert
+  issuerRef:
+    name: {{ include "issuer.fullname" . }}-vault
+{{- end }}

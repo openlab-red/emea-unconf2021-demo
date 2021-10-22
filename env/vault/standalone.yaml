@@ -1,0 +1,40 @@
+global:
+  tlsDisable: false
+  openshift: true
+
+ui:
+  enabled: true
+
+server:
+  extraEnvironmentVars:
+    VAULT_CAPATH: /var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt
+    VAULT_ADDR: vault-internal.hashicorp.svc.cluster.local:8200
+
+  route:
+    enabled: true
+    host: vault.apps.cluster-7bcd.7bcd.sandbox334.opentlc.com
+
+  standalone:
+    enabled: true
+    config: |
+      ui = true
+      listener "tcp" {
+        address = "[::]:8200"
+        cluster_address = "[::]:8201"
+        tls_cert_file = "/vault/userconfig/vault-secret/tls.crt"
+        tls_key_file = "/vault/userconfig/vault-secret/tls.key"
+      }
+      storage "file" {
+        path = "/vault/data"
+      }
+  ha:
+    enabled: false
+
+  extraVolumes:
+  - type: secret
+    name: vault-secret
+
+  service:
+    enabled: true
+    annotations:
+      service.beta.openshift.io/serving-cert-secret-name: vault-secret
