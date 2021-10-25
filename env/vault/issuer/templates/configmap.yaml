@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ca-bundle
+  name: {{ include "issuer.fullname" . }}
   annotations:
     service.beta.openshift.io/inject-cabundle: "true"
   labels:

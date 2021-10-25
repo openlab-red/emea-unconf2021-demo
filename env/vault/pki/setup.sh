@@ -4,12 +4,12 @@ if [ "$#" -ne 1 ]; then
     echo "Missing Projects"
 fi
 
-export BASE_DOMAIN=${2:-unconf.io}
+export BASE_DOMAIN=${3:-unconf.io}
 export PROJECT=$1
 export PKI=${PROJECT}-pki
 export DOMAIN=${PROJECT}.$BASE_DOMAIN
 export ROLE=${PROJECT}-$BASE_DOMAIN
-export SERVICE_ACCOUNT=issuer
+export SERVICE_ACCOUNT=${PROJECT}-issuer
 export WILDCARD_DOMAIN=$2
 
 echo "Setup on ${PROJECT}"
@@ -52,7 +52,7 @@ path "${PKI}/sign/${BASE_DOMAIN}"    { capabilities = ["create", "update"] }
 path "${PKI}/issue/${BASE_DOMAIN}"   { capabilities = ["create"] }
 EOF
 
-echo "Authorize ServiceAccount issuer on ${PROJECT}"
+echo "Authorize ServiceAccount ${SERVICE_ACCOUNT} on ${PROJECT}"
 
 vault write --tls-skip-verify auth/kubernetes/role/${ROLE} \
   bound_service_account_names=${SERVICE_ACCOUNT} bound_service_account_namespaces="${PROJECT}" \

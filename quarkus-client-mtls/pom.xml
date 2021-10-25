@@ -16,6 +16,9 @@
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
     <wiremock.version>2.31.0</wiremock.version>
     <jkube.version>1.4.0</jkube.version>
+
+    <!-- Application specific -->
+    <jkube.namespace>app-dev</jkube.namespace>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -93,6 +96,12 @@
     </plugins>
   </build>
   <profiles>
+    <profile>
+      <id>prod</id>
+      <properties>
+        <jkube.namespace>app-prod</jkube.namespace>
+      </properties>
+    </profile>
     <profile>
       <id>native</id>
       <activation>

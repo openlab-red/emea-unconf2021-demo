@@ -1,6 +1,6 @@
 {{- if .Values.issuer.create -}}
-{{- $sa := (lookup "v1" "ServiceAccount" .Release.Namespace "issuer") -}}
-{{- $bundle := (lookup "v1" "ConfigMap" .Release.Namespace "ca-bundle") -}}
+{{- $sa := (lookup "v1" "ServiceAccount" .Release.Namespace (include "issuer.serviceAccountName" .)) -}}
+{{- $bundle := (lookup "v1" "ConfigMap" .Release.Namespace  (include "issuer.fullname" .)) -}}
 ---
 apiVersion: cert-manager.io/v1
 kind: Issuer
