@@ -7,7 +7,6 @@ baseDomain: unconf.io
 serviceAccount:
   create: true
   annotations: {}
-  name: "issuer"
 
 issuer:
   create: false

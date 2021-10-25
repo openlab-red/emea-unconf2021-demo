@@ -3,13 +3,13 @@ kind: Certificate
 metadata:
   name: client
 spec:
-  commonName: client.app-dev.unconf.io
+  commonName: client.${jkube.namespace}.unconf.io
   dnsNames:
-    - client.app-dev.unconf.io
-    - client-app-dev.apps.cluster-7bcd.7bcd.sandbox334.opentlc.com
-    - client.app-dev.svc
+    - client.${jkube.namespace}.unconf.io
+    - client-${jkube.namespace}.apps.cluster-7bcd.7bcd.sandbox334.opentlc.com
+    - client.${jkube.namespace}.svc
   issuerRef:
-    name: vault-issuer-vault
+    name: ${jkube.namespace}-issuer-vault
   secretName: client
   keystores:
     pkcs12:

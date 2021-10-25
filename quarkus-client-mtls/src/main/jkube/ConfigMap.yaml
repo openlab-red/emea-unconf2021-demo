@@ -4,7 +4,7 @@ metadata:
   name: client
 data:
   application.properties: >-
-    org.acme.client.mtls.GreetingService/mp-rest/url=https://server.app-dev.svc:8443
+    org.acme.client.mtls.GreetingService/mp-rest/url=https://server.${jkube.namespace}.svc:8443
 
     org.acme.client.mtls.GreetingService/mp-rest/trustStore=/deployments/tls/truststore.p12
 

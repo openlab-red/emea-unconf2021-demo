@@ -27,7 +27,7 @@ Follow the [environment setup](env/README.md) instruction.
 
 ### Build & Run OpenShift
   ```
-  mvn oc:build oc:resource oc:apply
+  mvn oc:build oc:resource oc:apply -Pdev
   ```
 
 ## Reference
