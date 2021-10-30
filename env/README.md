@@ -68,6 +68,16 @@
     vault operator unseal $KEYS
     ```
 
+4. Enable Kubernetes Auth
+
+    ```
+    JWT=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+    KUBERNETES_HOST=https://${KUBERNETES_PORT_443_TCP_ADDR}:443
+
+    vault auth enable --tls-skip-verify kubernetes
+    vault write --tls-skip-verify auth/kubernetes/config token_reviewer_jwt=$JWT kubernetes_host=$KUBERNETES_HOST kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    ```
+    
 ## Cert Manager and Vault PKI Integration
 
 ![Cert Manager Vault Integration!](images/architecture.png "Cert Manager Vault Integration")
